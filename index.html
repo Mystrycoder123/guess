@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #guess {
+            width: 30px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        #result {
+            font-size: 20px;
+        }
+
+        #button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Number Game</h1>
+    <p>Guess a number between 1 and 100:</p>
+    <input type="text" id="guess" placeholder="Enter your guess">
+    <button id="button">Submit Guess</button>
+    <p id="message"></p>
+    <p id="result"></p>
+
+    <script>
+        const min = 1;
+        const max = 100;
+        const targetNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        let attempts = 0;
+
+        const guessInput = document.getElementById("guess");
+        const message = document.getElementById("message");
+        const result = document.getElementById("result");
+        const submitButton = document.getElementById("button");
+
+        submitButton.addEventListener("click", function () {
+            const guess = parseInt(guessInput.value);
+            attempts++;
+
+            if (isNaN(guess) || guess < min || guess > max) {
+                message.textContent = "Please enter a valid number between 1 and 100.";
+            } else if (guess < targetNumber) {
+                message.textContent = "Try a higher number.";
+            } else if (guess > targetNumber) {
+                message.textContent = "Try a lower number.";
+            } else {
+                message.textContent = `Congratulations! You guessed the number in ${attempts} attempts.`;
+                result.textContent = `The number was ${targetNumber}.`;
+                guessInput.disabled = true;
+                submitButton.disabled = true;
+            }
+
+            guessInput.value = "";
+        });
+    </script>
+</body>
+</html>
+
